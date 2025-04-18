@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:mathflash/data/sample_data.dart';
 import 'package:mathflash/models/pack.dart';
+import 'package:mathflash/providers/account_provider.dart';
+import 'package:mathflash/screens/account/account_screen.dart';
 import 'package:mathflash/screens/flashcard_viewer_screen.dart';
 
 class PackSelectionScreen extends StatelessWidget {
@@ -9,6 +12,8 @@ class PackSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final packs = SampleData.getPacks();
+    final accountProvider = Provider.of<AccountProvider>(context);
+    final user = accountProvider.currentUser;
     
     return Scaffold(
       appBar: AppBar(
@@ -27,11 +32,25 @@ class PackSelectionScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Available Packs',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  // Header with premium badge if applicable
+                  Row(
+                    children: [
+                      const Text(
+                        'Available Packs',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const Spacer(),
+                      if (user.isPremium)
+                        Chip(
+                          label: const Text('Premium'),
+                          backgroundColor: Colors.amber.shade100,
+                          avatar: const Icon(Icons.star, color: Colors.amber),
+                        ),
+                    ],
                   ),
                   const SizedBox(height: 16),
+                  
+                  // Pack grid
                   Expanded(
                     child: GridView.builder(
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -43,15 +62,24 @@ class PackSelectionScreen extends StatelessWidget {
                       itemCount: packs.length,
                       itemBuilder: (context, index) {
                         final pack = packs[index];
+                        final bool isPurchased = user.purchasedPackIds.contains(pack.id) || user.isPremium;
+                        
                         return PackCard(
                           pack: pack,
+                          isPurchased: isPurchased,
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => FlashcardViewerScreen(pack: pack),
-                              ),
-                            );
+                            if (isPurchased) {
+                              // If purchased, navigate to the flashcard viewer
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FlashcardViewerScreen(pack: pack),
+                                ),
+                              );
+                            } else {
+                              // If not purchased, show purchase dialog
+                              _showPurchaseDialog(context, pack, accountProvider);
+                            }
                           },
                         );
                       },
@@ -62,16 +90,154 @@ class PackSelectionScreen extends StatelessWidget {
             ),
     );
   }
+  
+  void _showPurchaseDialog(BuildContext context, Pack pack, AccountProvider accountProvider) {
+    final user = accountProvider.currentUser;
+    
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Purchase ${pack.name}'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Pack icon
+              Icon(
+                pack.topic == 'Geometry' ? Icons.category : Icons.bar_chart,
+                size: 48,
+                color: pack.topic == 'Geometry' ? Colors.blue : Colors.green,
+              ),
+              const SizedBox(height: 16),
+              
+              // Pack details
+              Text(
+                pack.description,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              
+              // Price
+              Text(
+                '\$${pack.price.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              
+              // Premium upgrade suggestion
+              if (!user.isPremium) ...[  
+                const SizedBox(height: 16),
+                const Divider(),
+                const SizedBox(height: 8),
+                const Text(
+                  'Or upgrade to Premium for access to all packs!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ],
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            if (!user.isPremium)
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AccountScreen(),
+                    ),
+                  );
+                },
+                child: const Text('Premium Upgrade'),
+              ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                
+                // Check if user is logged in
+                if (user.isGuest) {
+                  _showLoginRequiredDialog(context);
+                  return;
+                }
+                
+                // Process the purchase
+                accountProvider.purchasePack(pack.id);
+                
+                // Show success message
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${pack.name} purchased successfully!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+                
+                // Navigate to the flashcard viewer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FlashcardViewerScreen(pack: pack),
+                  ),
+                );
+              },
+              child: const Text('Purchase'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  
+  void _showLoginRequiredDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Login Required'),
+          content: const Text(
+            'You need to be logged in to purchase packs. Would you like to go to the account screen to sign in?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AccountScreen(),
+                  ),
+                );
+              },
+              child: const Text('Go to Account'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class PackCard extends StatelessWidget {
   final Pack pack;
   final VoidCallback onTap;
+  final bool isPurchased;
 
   const PackCard({
     super.key,
     required this.pack,
     required this.onTap,
+    this.isPurchased = false,
   });
 
   @override
@@ -82,50 +248,106 @@ class PackCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            // Placeholder for the pack image
-            AspectRatio(
-              aspectRatio: 1.5,
-              child: Container(
-                color: pack.topic == 'Geometry' 
-                    ? Colors.blue.shade200 
-                    : Colors.green.shade200,
-                child: Center(
-                  child: Icon(
-                    pack.topic == 'Geometry' ? Icons.category : Icons.bar_chart,
-                    size: 40,
+            // Main content
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Placeholder for the pack image
+                AspectRatio(
+                  aspectRatio: 1.5,
+                  child: Container(
+                    color: pack.topic == 'Geometry' 
+                        ? Colors.blue.shade200 
+                        : Colors.green.shade200,
+                    child: Center(
+                      child: Icon(
+                        pack.topic == 'Geometry' ? Icons.category : Icons.bar_chart,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        pack.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        pack.topic,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Price or status
+                          isPurchased
+                              ? Text(
+                                  'Purchased',
+                                  style: TextStyle(
+                                    color: Colors.green.shade700,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                )
+                              : Text(
+                                  '\$${pack.price.toStringAsFixed(2)}',
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                          
+                          // Action button
+                          isPurchased
+                              ? const Icon(
+                                  Icons.visibility,
+                                  size: 18,
+                                  color: Colors.blue,
+                                )
+                              : const Icon(
+                                  Icons.shopping_cart,
+                                  size: 18,
+                                  color: Colors.orange,
+                                ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            
+            // Purchased badge
+            if (isPurchased)
+              Positioned(
+                top: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade700,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(8),
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.check,
                     color: Colors.white,
+                    size: 16,
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    pack.name,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    pack.topic,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text('\$${pack.price.toStringAsFixed(2)}',
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
           ],
         ),
       ),

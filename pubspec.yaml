@@ -62,6 +62,8 @@ flutter:
   # Add assets for flashcards
   assets:
     - assets/
+    - assets/images/flashcards/geometry/
+    - assets/images/flashcards/statistics/
     - packs/
 
   # To add assets to your application, add an assets section, like this:

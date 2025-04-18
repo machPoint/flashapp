@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:mathflash/providers/theme_provider.dart';
+import 'package:mathflash/providers/account_provider.dart';
 import 'package:mathflash/screens/pack_selection_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,20 +10,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('MathFlash'),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        actions: [
-          IconButton(
-            icon: Icon(
-              themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-            ),
-            onPressed: toggleTheme,
-            tooltip: 'Toggle theme',
-          ),
-        ],
       ),
       body: const FlashcardHomeView(),
     );
@@ -36,6 +26,8 @@ class FlashcardHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final accountProvider = Provider.of<AccountProvider>(context);
+    final user = accountProvider.currentUser;
     
     return Center(
       child: Padding(
@@ -43,8 +35,11 @@ class FlashcardHomeView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Welcome message with personalization if logged in
             Text(
-              'Welcome to MathFlash',
+              user.isGuest 
+                  ? 'Welcome to MathFlash' 
+                  : 'Welcome back, ${user.displayName}',
               style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: theme.colorScheme.primary,
@@ -64,6 +59,8 @@ class FlashcardHomeView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 40),
+            
+            // Main action button
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
@@ -79,9 +76,52 @@ class FlashcardHomeView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
             ),
+            
+            // Show purchased packs if user is logged in
+            if (!user.isGuest && user.purchasedPackIds.isNotEmpty) ...[  
+              const SizedBox(height: 40),
+              Text(
+                'Your Purchased Packs',
+                style: theme.textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                alignment: WrapAlignment.center,
+                children: user.purchasedPackIds.map((packId) {
+                  return ActionChip(
+                    avatar: Icon(
+                      packId.contains('geometry') 
+                          ? Icons.category 
+                          : Icons.bar_chart,
+                      size: 18,
+                    ),
+                    label: Text(_formatPackName(packId)),
+                    onPressed: () {
+                      // Navigate to specific pack
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PackSelectionScreen(),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+            ],
           ],
         ),
       ),
     );
+  }
+  
+  String _formatPackName(String packId) {
+    return packId
+        .split('_')
+        .map((word) => word[0].toUpperCase() + word.substring(1))
+        .join(' ');
   }
 }

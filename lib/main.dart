@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:mathflash/providers/account_provider.dart';
 import 'package:mathflash/providers/theme_provider.dart';
 import 'package:mathflash/screens/home_screen.dart';
+import 'package:mathflash/widgets/upper_strip.dart';
 
 void main() {
   runApp(const MathFlashApp());
@@ -12,8 +14,11 @@ class MathFlashApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => AccountProvider()),
+      ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, _) {
           return MaterialApp(
@@ -21,11 +26,33 @@ class MathFlashApp extends StatelessWidget {
             themeMode: themeProvider.themeMode,
             theme: themeProvider.lightTheme,
             darkTheme: themeProvider.darkTheme,
-            home: HomeScreen(
-              toggleTheme: () => themeProvider.toggleTheme(),
-            ),
+            home: const AppScaffold(),
+            debugShowCheckedModeBanner: false,
           );
         },
+      ),
+    );
+  }
+}
+
+class AppScaffold extends StatelessWidget {
+  const AppScaffold({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          // Upper strip with account access
+          const UpperStrip(),
+          
+          // Main content area
+          Expanded(
+            child: HomeScreen(
+              toggleTheme: () => Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
+            ),
+          ),
+        ],
       ),
     );
   }

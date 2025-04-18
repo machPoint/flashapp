@@ -1,0 +1,94 @@
+{
+   "checksum": "6c8ebb00f9032d3f36bb601b62c55396",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13279248953051062",
+            "date_last_used": "0",
+            "guid": "edc0e813-2975-4f4c-aa76-bfeb552552f1",
+            "id": "8",
+            "name": "Amazon.com: Prime Video: Prime Video",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.amazon.com/s/browse?filterId=OFFER_FILTER%3DPRIME&node=2858778011&ref_=nav_em__aiv_piv_0_2_2_3",
+            "visit_count": 0
+         }, {
+            "date_added": "13279560586431261",
+            "date_last_used": "0",
+            "guid": "73739044-c947-47f2-a597-dfbb8e47d278",
+            "id": "9",
+            "name": "Home - Netflix",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.netflix.com/browse",
+            "visit_count": 0
+         }, {
+            "date_added": "13323764481826773",
+            "date_last_used": "0",
+            "guid": "8bb237e9-b9f1-49ee-85fc-1f718e99494c",
+            "id": "10",
+            "name": "Amazon.ca – Online Shopping",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "http://www.amazon.ca/gp/bit/amazonbookmark.html?tag=hp2-brobookmark-ca-20&partner=HP",
+            "visit_count": 0
+         } ],
+         "date_added": "13389417237220310",
+         "date_last_used": "0",
+         "date_modified": "13323764481826773",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Favorites bar",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [ {
+            "children": [ {
+               "date_added": "13278102755953323",
+               "date_last_used": "0",
+               "guid": "4bcbbcfd-4c1c-407a-80ca-2b03b8a4f58b",
+               "id": "7",
+               "name": "Amazon.ca – Online Shopping",
+               "show_icon": false,
+               "source": "sync",
+               "type": "url",
+               "url": "http://www.amazon.ca/gp/bit/amazonbookmark.html?tag=hp2-brobookmark-ca-20&partner=HP",
+               "visit_count": 0
+            } ],
+            "date_added": "13289186472329997",
+            "date_last_used": "0",
+            "date_modified": "13289186472329997",
+            "guid": "75618077-cef6-4b65-95f1-f12b7e1a76c6",
+            "id": "6",
+            "name": "HP",
+            "source": "unknown",
+            "type": "folder"
+         } ],
+         "date_added": "13389417237220312",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13389417237220313",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile favorites",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CjEKDgiIgQISCFfyDUeWAQAAEgAqGHR2RFdnNjBlMEo0UWRFUndqNEllbFE9PUgDoAYMEq0BCAoSqAEKHEJQT0xYOVVGMjgyM2kzdEhsZlAzdWFGRDRzST0SJDhiYjIzN2U5LWI5ZjEtNDllZS04NWZjLTFmNzE4ZTk5NDk0YxgAIAAoADD69Kbt7zA4kfWm7e8wQJH1pu3vMEocZGZPOWtuWU92bWRNdThiWVF3L0tTOWJuVC9NPVofIh3VbGFtbmNsc2ZGenloc08rV0czYng0MnlqT1c4PWUAAAAAwj4CYAUSrQEICRKoAQocN0JZcWhuRjhHemJPZkozTTV3SFVva21EalFRPRIkNzM3MzkwNDQtYzk0Ny00N2YyLWE1OTctZGZiYjhlNDdkMjc4GAAgACgAMJDDmd2sMjjN4vmu7S9AzeL5ru0vShxkSHM0Q3h6WW5KRWd5dm12VmFUZ1BsNnp3N2s9Wh8iHatNYkZyZVVOdGh1ZFJRSGpRMmxzRURIa3ZOUzg9ZVlFyT/CPgJgBRKsAQgIEqcBChxpS1VFaFFXeEY0QUt6WS9MOXAwb2RVRXZ4L0E9EiRlZGMwZTgxMy0yOTc1LTRmNGMtYWE3Ni1iZmViNTUyNTUyZjEYACAAKAAwj8OZ3awyOOzi+a7tL0Ds4vmu7S9KHEtSNklwUU5pK1l0NlprZFdjY1NxUC8ycGFQTT1aHiIcVzkxdFlwNlpEb3pobG1BajExKzJXZ2Y3SjljPWXDfjbUwj4CYAUSrAEIBxKnAQocME9sbVZlWmVXcUp3SUsvRlZGUG5ERGJPZ3RzPRIkNGJjYmJjZmQtNGMxYy00MDdhLTgwY2EtMmIwM2I4YTRmNThiGAAgACgAMJWmm4TvLziOp5uE7y9AjqebhO8vShxKWWZ0cTFOSUpSZXlRVGdRVy9LSFlQRTVBKzA9Wh4iHC9Say9nNkNBbHRqdEJvek1kdDF0bG9iT2txZz1lAAAAAMI+AmAFEo4BCAESiQEKHHl4Si82ZnZrZWNyN2twNUVRekI0dFdMcGRiRT0SJGU0ZWRhMzUyLTIzMjctNWYyMC1iNjJhLTg3YzNjZDJmYTJlNxgAIAAoADD1he350S44ydn5ru0vQMnZ+a7tL0ocYVJDV0xnaEY5YjVJbnFLSUR2dUovanZRa0ZjPVoAZQAAAADCPgJgABKsAQgGEqcBChxwQnVkZEpSUXgzR1VkNzNRNW5iUTc1ZDJ1elU9EiQ3NTYxODA3Ny1jZWY2LTRiNjUtOTVmMS1mMTJiN2UxYTc2YzYYACAAKAAwlaabhO8vOO+mm4TvL0DvppuE7y9KHCtrbmV2cTR0cVNTWForZGZ0YjQ0alVzc2kyST1aHiIcemgzaW42cTA0MHdZTWVTVklPRmRYaEUvR04wPWUAAAAAwj4CYAASjgEIAhKJAQocWWNTVG9udkVTUHdxQ3M0TDJjclZodjY4TDk4PRIkYzgyNjFmODUtZGE2OC01YTRlLTg4ODItMzQxNWYxNDI4MGZiGAAgACgAMPaF7fnRLjj32fmu7S9A99n5ru0vShxvUFZraHdCUmJWNjVLQ1dSMitJT05IV29PdTg9WgBlAAAAAMI+AmAAEo4BCAMSiQEKHG5qZ0R1ODhlQ3J2WHA4NnBEN2ZIR2NxRnA4OD0SJDI1YTc3MTE3LTMzYzEtNThkYy05ODRmLTA1ZDcyNzU5MmU0NhgAIAAoADD6he350S449Nr5ru0vQPTa+a7tL0oceXpOQjAxY241NEE3Y1JVMHVUKy9QZ21UdFVvPVoAZQAAAADCPgJgADAAOAA=",
+   "version": 1
+}

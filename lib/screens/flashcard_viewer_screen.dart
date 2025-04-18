@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mathflash/models/flashcard.dart';
 import 'package:mathflash/models/pack.dart';
+import 'package:mathflash/screens/flashcard_viewer_screen_helper.dart';
 
 class FlashcardViewerScreen extends StatefulWidget {
   final Pack pack;
@@ -148,24 +149,80 @@ class FlashcardView extends StatelessWidget {
             ),
           ),
           
-          // Flashcard content (placeholder)
+          // Flashcard content - actual image
           Expanded(
             child: Container(
               margin: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: flashcard.topic == 'Geometry' 
                     ? Colors.blue.shade50 
-                    : Colors.green.shade50,
+                    : (flashcard.title.contains('Dark') ? Colors.blueGrey.shade100 : Colors.green.shade50),
                 borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
-              child: Center(
-                child: Icon(
-                  flashcard.topic == 'Geometry' ? Icons.category : Icons.bar_chart,
-                  size: 80,
-                  color: flashcard.topic == 'Geometry' 
-                      ? Colors.blue.shade200 
-                      : Colors.green.shade200,
-                ),
+              child: Stack(
+                children: [
+                  // Placeholder in case image is not found
+                  Center(
+                    child: Icon(
+                      flashcard.topic == 'Geometry' ? Icons.category : Icons.bar_chart,
+                      size: 80,
+                      color: flashcard.topic == 'Geometry' 
+                          ? Colors.blue.shade200 
+                          : Colors.green.shade200,
+                    ),
+                  ),
+                  
+                  // Actual image with error handling
+                  Center(
+                    child: Image.asset(
+                      flashcard.imagePath,
+                      fit: BoxFit.contain,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      errorBuilder: (context, error, stackTrace) {
+                        // If image fails to load, show a placeholder with content
+                        return Container(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Topic icon
+                              Icon(
+                                flashcard.topic == 'Geometry' ? Icons.category : Icons.bar_chart,
+                                size: 60,
+                                color: flashcard.topic == 'Geometry' 
+                                    ? Colors.blue.shade300 
+                                    : Colors.green.shade300,
+                              ),
+                              const SizedBox(height: 16),
+                              
+                              // Flashcard title
+                              Text(
+                                flashcard.title,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 16),
+                              
+                              // Placeholder content based on flashcard title
+                              getPlaceholderContent(flashcard),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
