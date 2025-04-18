@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.10 # For SVG image support
+  provider: ^6.1.1 # For state management
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -50,11 +51,6 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-flutter:
-  assets:
-    - assets/
-    - packs/
-
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -62,6 +58,11 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  # Add assets for flashcards
+  assets:
+    - assets/
+    - packs/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
