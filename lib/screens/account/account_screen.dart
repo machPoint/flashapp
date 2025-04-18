@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mathflash/providers/account_provider.dart';
-import 'package:mathflash/providers/theme_provider.dart';
+import 'package:mathflash/theme/providers/theme_provider.dart';
+import 'package:mathflash/theme/theme_constants.dart';
+import 'package:mathflash/theme/screens/theme_selection_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -113,13 +115,43 @@ class AccountScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     ListTile(
+                      leading: const Icon(Icons.color_lens),
+                      title: const Text('Theme Selection'),
+                      subtitle: const Text('Choose a theme for the app'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ThemeSelectionScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.auto_awesome),
+                      title: const Text('Cosmic Theme'),
+                      subtitle: const Text('Apply space-themed UI'),
+                      trailing: themeProvider.themeType == ThemeConstants.cosmicTheme
+                          ? const Icon(Icons.check_circle, color: Colors.green)
+                          : null,
+                      onTap: () {
+                        themeProvider.setThemeType(ThemeConstants.cosmicTheme);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Cosmic theme applied!'),
+                            backgroundColor: Color(0xFF9C42F5),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
                       title: const Text('Dark Mode'),
                       leading: const Icon(Icons.dark_mode),
                       trailing: Switch(
                         value: themeProvider.isDarkMode,
-                        onChanged: (_) => themeProvider.toggleTheme(),
+                        onChanged: (_) => themeProvider.toggleLightDark(),
                       ),
-                      onTap: () => themeProvider.toggleTheme(),
+                      onTap: () => themeProvider.toggleLightDark(),
                     ),
                     const Divider(),
                     ListTile(

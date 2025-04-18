@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mathflash/providers/account_provider.dart';
 import 'package:mathflash/screens/account/account_screen.dart';
+import 'package:mathflash/screens/cosmic_theme_demo.dart';
 
 class UpperStrip extends StatelessWidget {
   const UpperStrip({super.key});
@@ -38,15 +39,34 @@ class UpperStrip extends StatelessWidget {
           ),
           
           // Right side - Account info
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AccountScreen(),
-                ),
-              );
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'account') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AccountScreen(),
+                  ),
+                );
+              } else if (value == 'cosmic_demo') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CosmicThemeDemo(),
+                  ),
+                );
+              }
             },
+            itemBuilder: (context) => [
+              const PopupMenuItem<String>(
+                value: 'account',
+                child: Text('Account'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'cosmic_demo',
+                child: Text('Cosmic Theme Demo'),
+              ),
+            ],
             child: Row(
               children: [
                 // Show premium badge if applicable

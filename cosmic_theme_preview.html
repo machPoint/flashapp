@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathFlash Cosmic Theme Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-space: #0A0E1B;
+            --light-space: #141A31;
+            --vibrant-purple: #9C42F5;
+            --bright-blue: #58C4F6;
+            --white: #FFFFFF;
+            --gray: rgba(255, 255, 255, 0.7);
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--deep-space), var(--light-space));
+            color: var(--white);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(156, 66, 245, 0.7);
+        }
+        
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 30px 0 20px;
+            color: var(--vibrant-purple);
+        }
+        
+        p {
+            line-height: 1.6;
+            color: var(--gray);
+        }
+        
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 48px;
+            font-weight: 700;
+            background: radial-gradient(circle, rgba(156, 66, 245, 0.2), transparent);
+            box-shadow: 0 0 20px rgba(156, 66, 245, 0.3);
+        }
+        
+        .screens {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .screen {
+            background: var(--light-space);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .screen:hover {
+            transform: translateY(-10px);
+        }
+        
+        .screen-header {
+            background: var(--vibrant-purple);
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .screen-content {
+            padding: 20px;
+        }
+        
+        .button {
+            background: var(--vibrant-purple);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            margin: 10px 0;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(156, 66, 245, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .button:hover {
+            background: #8a37d8;
+            box-shadow: 0 5px 20px rgba(156, 66, 245, 0.6);
+        }
+        
+        .input {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 20px;
+            width: 100%;
+            margin-bottom: 15px;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, var(--vibrant-purple), var(--bright-blue));
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-title {
+            font-weight: 600;
+            margin-top: 0;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--bright-blue);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .color-palette {
+            display: flex;
+            margin: 20px 0;
+        }
+        
+        .color-swatch {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .screens {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">MF</div>
+            <h1>MathFlash Cosmic Theme</h1>
+            <p>A beautiful space-themed UI for mathematical discovery</p>
+        </header>
+        
+        <h2>Theme Preview</h2>
+        <div class="screens">
+            <div class="screen">
+                <div class="screen-header">Login Screen</div>
+                <div class="screen-content">
+                    <input type="email" class="input" placeholder="student@mathflash.com">
+                    <input type="password" class="input" placeholder="Password">
+                    <button class="button">Sign In</button>
+                    <p style="text-align: center; font-size: 12px;">Or sign in with</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">f</div>
+                        <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">G</div>
+                        <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">a</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="screen">
+                <div class="screen-header">Flashcard Screen</div>
+                <div class="screen-content">
+                    <div class="card">
+                        <div style="background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 12px; margin-bottom: 10px;">Statistics</div>
+                        <h3 class="card-title">Normal Distribution</h3>
+                        <div style="height: 100px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 15px 0;">
+                            [Image Placeholder]
+                        </div>
+                        <p style="text-align: center; font-size: 12px;">Tap to flip</p>
+                    </div>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-value">12.3</div>
+                            <div class="stat-label">Minutes</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">9.8</div>
+                            <div class="stat-label">Score</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Streak</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <button class="button" style="background: var(--light-space);">Previous</button>
+                        <button class="button">Next</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="screen">
+                <div class="screen-header">Theme Selection</div>
+                <div class="screen-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div style="background: linear-gradient(135deg, var(--vibrant-purple), var(--bright-blue)); border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 0 0 3px var(--vibrant-purple);">
+                            <div style="font-weight: 600; margin-bottom: 10px;">Cosmic</div>
+                            <div style="height: 50px; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div style="font-size: 12px;">Sample Text</div>
+                                <div style="background: var(--vibrant-purple); padding: 5px; border-radius: 10px; font-size: 10px;">Button</div>
+                            </div>
+                        </div>
+                        <div style="background: #1E1E1E; border-radius: 10px; padding: 15px; text-align: center;">
+                            <div style="font-weight: 600; margin-bottom: 10px;">Dark</div>
+                            <div style="height: 50px; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div style="font-size: 12px;">Sample Text</div>
+                                <div style="background: #2196F3; padding: 5px; border-radius: 10px; font-size: 10px;">Button</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h4 style="margin-bottom: 10px;">Color Palette</h4>
+                        <div class="color-palette">
+                            <div class="color-swatch" style="background: var(--deep-space);"></div>
+                            <div class="color-swatch" style="background: var(--light-space);"></div>
+                            <div class="color-swatch" style="background: var(--vibrant-purple);"></div>
+                            <div class="color-swatch" style="background: var(--bright-blue);"></div>
+                        </div>
+                        <button class="button" style="width: 100%;">Apply Theme</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li>Dark space backgrounds with vibrant purple and blue accents</li>
+            <li>Animated UI elements for an engaging experience</li>
+            <li>Light & dark variants of the cosmic theme</li>
+            <li>Seamless integration with the existing theme engine</li>
+            <li>Accessibility options including high contrast mode</li>
+        </ul>
+        
+        <h2>Implementation</h2>
+        <p>The cosmic theme is implemented with a production-level architecture:</p>
+        <ul>
+            <li>Theme Model: A robust model with all necessary properties</li>
+            <li>Theme Repository: For storing and retrieving preferences</li>
+            <li>Theme Provider: State management for the theme</li>
+            <li>Predefined Themes: Collection including cosmic theme</li>
+            <li>Themed Screens: Login, flashcards, and theme selection</li>
+        </ul>
+        
+        <footer>
+            Created with 💜 for MathFlash
+        </footer>
+    </div>
+</body>
+</html>
