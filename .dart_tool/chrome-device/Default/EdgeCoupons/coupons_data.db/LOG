@@ -1,18 +1,23 @@
-2025/04/17-23:26:10.794 106d8 Reusing MANIFEST C:\Users\X1\AppData\Local\Temp\flutter_tools.861fa1b0\flutter_tools_chrome_device.d58e37f0\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2025/04/17-23:26:10.794 106d8 Recovering log #11
-2025/04/17-23:26:10.795 106d8 Reusing old log C:\Users\X1\AppData\Local\Temp\flutter_tools.861fa1b0\flutter_tools_chrome_device.d58e37f0\Default\EdgeCoupons/coupons_data.db/000011.log 
-2025/04/17-23:26:10.795 106d8 Delete type=0 #4
-2025/04/17-23:26:10.795 106d8 Delete type=0 #7
-2025/04/17-23:26:10.795 106d8 Delete type=2 #8
-2025/04/17-23:26:10.795 106d8 Delete type=0 #8
-2025/04/17-23:26:10.879 10ff0 Level-0 table #15: started
-2025/04/17-23:26:10.882 10ff0 Level-0 table #15: 670988 bytes OK
-2025/04/17-23:26:10.885 10ff0 Delete type=0 #11
-2025/04/17-23:26:10.885 10ff0 Compacting 4@0 + 0@1 files
-2025/04/17-23:26:10.889 10ff0 Generated table #16@0: 4 keys, 670895 bytes
-2025/04/17-23:26:10.889 10ff0 Compacted 4@0 + 0@1 files => 670895 bytes
-2025/04/17-23:26:10.891 10ff0 compacted to: files[ 0 1 1 0 0 0 0 ]
-2025/04/17-23:26:10.891 10ff0 Delete type=2 #7
-2025/04/17-23:26:10.892 10ff0 Delete type=2 #9
-2025/04/17-23:26:10.892 10ff0 Delete type=2 #12
-2025/04/17-23:26:10.892 10ff0 Delete type=2 #15
+2025/04/21-00:01:49.502 c177c Reusing MANIFEST C:\Users\X1\AppData\Local\Temp\flutter_tools.9459db48\flutter_tools_chrome_device.66f1bc5b\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2025/04/21-00:01:49.503 c177c Recovering log #31
+2025/04/21-00:01:49.503 c177c Reusing old log C:\Users\X1\AppData\Local\Temp\flutter_tools.9459db48\flutter_tools_chrome_device.66f1bc5b\Default\EdgeCoupons/coupons_data.db/000031.log 
+2025/04/21-00:01:49.504 c177c Delete type=0 #4
+2025/04/21-00:01:49.504 c177c Delete type=2 #7
+2025/04/21-00:01:49.504 c177c Delete type=0 #7
+2025/04/21-00:01:49.504 c177c Delete type=2 #8
+2025/04/21-00:01:49.504 c177c Delete type=0 #8
+2025/04/21-00:01:49.504 c177c Delete type=2 #9
+2025/04/21-00:01:49.505 c177c Delete type=0 #11
+2025/04/21-00:01:49.505 c177c Delete type=2 #12
+2025/04/21-00:01:49.505 c177c Delete type=0 #14
+2025/04/21-00:01:49.505 c177c Delete type=2 #16
+2025/04/21-00:01:49.505 c177c Delete type=0 #18
+2025/04/21-00:01:49.505 c177c Delete type=2 #19
+2025/04/21-00:01:49.505 c177c Delete type=0 #21
+2025/04/21-00:01:49.505 c177c Delete type=2 #22
+2025/04/21-00:01:49.505 c177c Delete type=0 #24
+2025/04/21-00:01:49.506 c177c Delete type=2 #25
+2025/04/21-00:01:49.506 c177c Delete type=0 #27
+2025/04/21-00:01:49.543 c0f6c Level-0 table #35: started
+2025/04/21-00:01:49.550 c0f6c Level-0 table #35: 670999 bytes OK
+2025/04/21-00:01:49.552 c0f6c Delete type=0 #31

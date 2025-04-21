@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mathflash/models/flashcard.dart';
 import 'package:mathflash/models/pack.dart';
-import 'package:mathflash/screens/flashcard_viewer_screen_helper.dart';
+import 'package:mathflash/widgets/cosmic_bottom_nav.dart';
+import 'package:mathflash/widgets/theme_aware_flashcard.dart';
 
 class FlashcardViewerScreen extends StatefulWidget {
   final Pack pack;
@@ -53,7 +54,7 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
         title: Text(widget.pack.name),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
-      body: Column(
+      body: SafeArea(child: Column(
         children: [
           // Pack info
           Padding(
@@ -73,14 +74,41 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
                   ),
                 ),
                 const Spacer(),
+              ],
+            ),
+          ),
+          
+          // Progress bar
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
                 Text(
-                  '${_currentIndex + 1} / ${widget.pack.flashcards.length}',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  'Card ${_currentIndex + 1}/${widget.pack.flashcards.length}',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.7),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: LinearProgressIndicator(
+                      value: widget.pack.flashcards.length > 1 ? 
+                        _currentIndex / (widget.pack.flashcards.length - 1) : 0.0,
+                      backgroundColor: Colors.grey.withOpacity(0.2),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                      minHeight: 8,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
           
+          const SizedBox(height: 8),
           // Flashcard viewer
           Expanded(
             child: PageView.builder(
@@ -93,7 +121,11 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
               itemCount: widget.pack.flashcards.length,
               itemBuilder: (context, index) {
                 final flashcard = widget.pack.flashcards[index];
-                return FlashcardView(flashcard: flashcard);
+                return FlashcardView(
+                  flashcard: flashcard,
+                  currentIndex: _currentIndex,
+                  totalCards: widget.pack.flashcards.length,
+                );
               },
             ),
           ),
@@ -118,6 +150,15 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
             ),
           ),
         ],
+      )),
+      bottomNavigationBar: CosmicBottomNav(
+        currentIndex: 1, // Explore tab
+        onTap: (index) {
+          // Handle navigation
+          if (index == 0) {
+            Navigator.of(context).pop(); // Go back to home
+          }
+        },
       ),
     );
   }
@@ -125,108 +166,23 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
 
 class FlashcardView extends StatelessWidget {
   final Flashcard flashcard;
+  final int currentIndex;
+  final int totalCards;
 
-  const FlashcardView({super.key, required this.flashcard});
+  const FlashcardView({
+    super.key, 
+    required this.flashcard,
+    required this.currentIndex,
+    required this.totalCards,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Column(
-        children: [
-          // Title
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              flashcard.title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          
-          // Flashcard content - actual image
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: flashcard.topic == 'Geometry' 
-                    ? Colors.blue.shade50 
-                    : (flashcard.title.contains('Dark') ? Colors.blueGrey.shade100 : Colors.green.shade50),
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Stack(
-                children: [
-                  // Placeholder in case image is not found
-                  Center(
-                    child: Icon(
-                      flashcard.topic == 'Geometry' ? Icons.category : Icons.bar_chart,
-                      size: 80,
-                      color: flashcard.topic == 'Geometry' 
-                          ? Colors.blue.shade200 
-                          : Colors.green.shade200,
-                    ),
-                  ),
-                  
-                  // Actual image with error handling
-                  Center(
-                    child: Image.asset(
-                      flashcard.imagePath,
-                      fit: BoxFit.contain,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      errorBuilder: (context, error, stackTrace) {
-                        // If image fails to load, show a placeholder with content
-                        return Container(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              // Topic icon
-                              Icon(
-                                flashcard.topic == 'Geometry' ? Icons.category : Icons.bar_chart,
-                                size: 60,
-                                color: flashcard.topic == 'Geometry' 
-                                    ? Colors.blue.shade300 
-                                    : Colors.green.shade300,
-                              ),
-                              const SizedBox(height: 16),
-                              
-                              // Flashcard title
-                              Text(
-                                flashcard.title,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 16),
-                              
-                              // Placeholder content based on flashcard title
-                              getPlaceholderContent(flashcard),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: ThemeAwareFlashcard(
+        flashcard: flashcard,
+        heroTag: 'flashcard_view',
       ),
     );
   }

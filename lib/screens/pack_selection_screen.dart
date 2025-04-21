@@ -5,6 +5,8 @@ import 'package:mathflash/models/pack.dart';
 import 'package:mathflash/providers/account_provider.dart';
 import 'package:mathflash/screens/account/account_screen.dart';
 import 'package:mathflash/screens/flashcard_viewer_screen.dart';
+import 'package:mathflash/theme/providers/theme_provider.dart';
+import 'package:mathflash/widgets/cosmic_bottom_nav.dart';
 
 class PackSelectionScreen extends StatelessWidget {
   const PackSelectionScreen({super.key});
@@ -15,16 +17,34 @@ class PackSelectionScreen extends StatelessWidget {
     final accountProvider = Provider.of<AccountProvider>(context);
     final user = accountProvider.currentUser;
     
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isCosmicTheme = themeProvider.themeType == 'cosmic';
+    final currentTheme = themeProvider.currentTheme;
+    
     return Scaffold(
+      backgroundColor: currentTheme.backgroundColor,
       appBar: AppBar(
         title: const Text('Select a Pack'),
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        backgroundColor: isCosmicTheme ? Colors.transparent : Theme.of(context).colorScheme.primaryContainer,
+        elevation: isCosmicTheme ? 0 : 4,
+      ),
+      bottomNavigationBar: CosmicBottomNav(
+        currentIndex: 1, // Explore tab
+        onTap: (index) {
+          // Handle navigation
+          if (index == 0) {
+            Navigator.of(context).pop(); // Go back to home
+          }
+        },
       ),
       body: packs.isEmpty
-          ? const Center(
+          ? Center(
               child: Text(
                 'No packs available yet',
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(
+                  fontSize: 18,
+                  color: currentTheme.textColor,
+                ),
               ),
             )
           : Padding(
@@ -35,9 +55,13 @@ class PackSelectionScreen extends StatelessWidget {
                   // Header with premium badge if applicable
                   Row(
                     children: [
-                      const Text(
+                      Text(
                         'Available Packs',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 20, 
+                          fontWeight: FontWeight.bold,
+                          color: currentTheme.textColor,
+                        ),
                       ),
                       const Spacer(),
                       if (user.isPremium)
@@ -242,11 +266,14 @@ class PackCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isCosmicTheme = themeProvider.themeType == 'cosmic';
     return GestureDetector(
       onTap: onTap,
       child: Card(
         clipBehavior: Clip.antiAlias,
-        elevation: 4,
+        elevation: isCosmicTheme ? 8 : 4,
+        color: isCosmicTheme ? const Color(0xFF141A31) : null,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Stack(
           children: [
@@ -259,8 +286,17 @@ class PackCard extends StatelessWidget {
                   aspectRatio: 1.5,
                   child: Container(
                     color: pack.topic == 'Geometry' 
-                        ? Colors.blue.shade200 
-                        : Colors.green.shade200,
+                        ? (isCosmicTheme ? const Color(0xFF3A86FF) : Colors.blue.shade200)
+                        : (isCosmicTheme ? const Color(0xFF58C4F6) : Colors.green.shade200),
+                    decoration: isCosmicTheme ? BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: pack.topic == 'Geometry'
+                            ? [const Color(0xFF3A86FF), const Color(0xFF7B2CBF)]
+                            : [const Color(0xFF58C4F6), const Color(0xFF9C42F5)],
+                      ),
+                    ) : null,
                     child: Center(
                       child: Icon(
                         pack.topic == 'Geometry' ? Icons.category : Icons.bar_chart,
@@ -285,8 +321,10 @@ class PackCard extends StatelessWidget {
                       Text(
                         pack.topic,
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 12,
+                          fontSize: 14,
+                          color: pack.topic == 'Geometry' 
+                              ? (isCosmicTheme ? const Color(0xFF3A86FF) : Colors.blue.shade700)
+                              : (isCosmicTheme ? const Color(0xFF58C4F6) : Colors.green.shade700),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -313,7 +351,7 @@ class PackCard extends StatelessWidget {
                               ? const Icon(
                                   Icons.visibility,
                                   size: 18,
-                                  color: Colors.blue,
+                                  color: isCosmicTheme ? const Color(0xFF3A86FF) : Colors.blue,
                                 )
                               : const Icon(
                                   Icons.shopping_cart,
@@ -336,7 +374,7 @@ class PackCard extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.green.shade700,
+                    color: isCosmicTheme ? const Color(0xFF9C42F5) : Colors.green,
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(8),
                     ),

@@ -1,9 +1,22 @@
-2025/04/17-22:28:01.772 e6ec Reusing MANIFEST C:\Users\X1\AppData\Local\Temp\flutter_tools.9d509391\flutter_tools_chrome_device.4baab9c8\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2025/04/17-22:28:01.773 e6ec Recovering log #8
-2025/04/17-22:28:01.773 e6ec Reusing old log C:\Users\X1\AppData\Local\Temp\flutter_tools.9d509391\flutter_tools_chrome_device.4baab9c8\Default\EdgeCoupons/coupons_data.db/000008.log 
-2025/04/17-22:28:01.774 e6ec Delete type=0 #4
-2025/04/17-22:28:01.774 e6ec Delete type=0 #7
-2025/04/17-22:28:01.774 e6ec Delete type=2 #8
-2025/04/17-22:28:01.871 e790 Level-0 table #12: started
-2025/04/17-22:28:01.875 e790 Level-0 table #12: 670988 bytes OK
-2025/04/17-22:28:01.878 e790 Delete type=0 #8
+2025/04/20-23:51:47.890 c65b4 Reusing MANIFEST C:\Users\X1\AppData\Local\Temp\flutter_tools.1b584f21\flutter_tools_chrome_device.2e769514\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2025/04/20-23:51:47.891 c65b4 Recovering log #27
+2025/04/20-23:51:47.891 c65b4 Reusing old log C:\Users\X1\AppData\Local\Temp\flutter_tools.1b584f21\flutter_tools_chrome_device.2e769514\Default\EdgeCoupons/coupons_data.db/000027.log 
+2025/04/20-23:51:47.892 c65b4 Delete type=0 #4
+2025/04/20-23:51:47.892 c65b4 Delete type=2 #7
+2025/04/20-23:51:47.892 c65b4 Delete type=0 #7
+2025/04/20-23:51:47.892 c65b4 Delete type=2 #8
+2025/04/20-23:51:47.892 c65b4 Delete type=0 #8
+2025/04/20-23:51:47.892 c65b4 Delete type=2 #9
+2025/04/20-23:51:47.892 c65b4 Delete type=0 #11
+2025/04/20-23:51:47.892 c65b4 Delete type=2 #12
+2025/04/20-23:51:47.892 c65b4 Delete type=0 #14
+2025/04/20-23:51:47.892 c65b4 Delete type=2 #16
+2025/04/20-23:51:47.892 c65b4 Delete type=0 #18
+2025/04/20-23:51:47.892 c65b4 Delete type=2 #19
+2025/04/20-23:51:47.892 c65b4 Delete type=0 #21
+2025/04/20-23:51:47.893 c65b4 Delete type=2 #22
+2025/04/20-23:51:47.893 c65b4 Delete type=0 #24
+2025/04/20-23:51:47.893 c65b4 Delete type=2 #25
+2025/04/20-23:51:47.987 c2680 Level-0 table #32: started
+2025/04/20-23:51:47.989 c2680 Level-0 table #32: 670988 bytes OK
+2025/04/20-23:51:47.991 c2680 Delete type=0 #27
